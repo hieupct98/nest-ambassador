@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: ./.docker/services/app/Dockerfile
+    image: nest-ambassador
+    ports:
+      - "${PORT}:${PORT}"
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    
