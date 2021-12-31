@@ -10,4 +10,26 @@ export default () => ({
   env: process.env.NODE_ENV || 'development',
   projectId: process.env.PROJECT_ID || 'nest-ambassador',
   port: parseInt(process.env.PORT) || 8080,
+
+  // database
+  database: {
+    main: {
+      dialect: process.env.DB_MAIN_DIALECT || 'mysql',
+      host: process.env.DB_MAIN_HOST || 'db',
+      port: parseInt(process.env.DB_MAIN_PORT) || 3306,
+      username: process.env.DB_MAIN_USERNAME || 'root',
+      password: process.env.DB_MAIN_PASSWORD || null,
+      database: process.env.DB_MAIN_DATABASE || 'ambassador',
+    },
+    // Note: The test database currently uses many of the same
+    //       environment variables as the main database.
+    test: {
+      dialect: process.env.DB_MAIN_DIALECT || 'mysql',
+      host: process.env.DB_MAIN_HOST || 'db',
+      port: parseInt(process.env.DB_MAIN_PORT) || 3306,
+      username: process.env.DB_MAIN_USERNAME || 'root',
+      password: process.env.DB_MAIN_PASSWORD || null,
+      database: process.env.DB_TEST_DATABASE || 'ambassadortest',
+    },
+  },
 });
