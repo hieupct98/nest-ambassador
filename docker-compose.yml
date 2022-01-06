@@ -13,6 +13,9 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    environment:
+      DB_MAIN_HOST: ${DB_MAIN_HOST:-db}
+      DB_MAIN_PORT: ${DB_MAIN_PORT:-3306}
     depends_on:
       - db
 

@@ -10,6 +10,12 @@ set -e
 # Stop if a referenced variable is not set.
 set -u
 
+# Poll the database server (e.g. the `db` Docker container) until it is ready to accept connections.
+#
+# Reference: https://github.com/vishnubob/wait-for-it
+#
+wait-for-it "${DB_MAIN_HOST}":"${DB_MAIN_PORT}" -- echo "Database server is ready to accept connections."
+
 # Get the user's attention, as they may have been multitasking.
 #
 # References:

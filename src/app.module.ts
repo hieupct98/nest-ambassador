@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import configuration from '../config/configuration';
+import {
+  createMainDatabaseConfiguration,
+  createTestDatabaseConfiguration,
+} from './app.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -10,15 +14,15 @@ import { AppService } from './app.service';
     ConfigModule.forRoot({
       load: [configuration],
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'test',
-      entities: [],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      name: 'default',
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => {
+        return configService.get('env') === 'test'
+          ? createTestDatabaseConfiguration(configService)
+          : createMainDatabaseConfiguration(configService);
+      },
+      inject: [ConfigService],
     }),
   ],
   controllers: [AppController],

@@ -14,7 +14,6 @@ export default () => ({
   // database
   database: {
     main: {
-      dialect: process.env.DB_MAIN_DIALECT || 'mysql',
       host: process.env.DB_MAIN_HOST || 'db',
       port: parseInt(process.env.DB_MAIN_PORT) || 3306,
       username: process.env.DB_MAIN_USERNAME || 'root',
@@ -24,7 +23,6 @@ export default () => ({
     // Note: The test database currently uses many of the same
     //       environment variables as the main database.
     test: {
-      dialect: process.env.DB_MAIN_DIALECT || 'mysql',
       host: process.env.DB_MAIN_HOST || 'db',
       port: parseInt(process.env.DB_MAIN_PORT) || 3306,
       username: process.env.DB_MAIN_USERNAME || 'root',
