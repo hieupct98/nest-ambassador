@@ -9,6 +9,14 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
+  const corsOptions = {
+    origin: true,
+    credentials: true,
+    exposedHeaders: ['set-cookie'],
+  };
+
+  app.enableCors(corsOptions);
+
   await app.listen(configService.get<number>('port'));
 }
 bootstrap();
